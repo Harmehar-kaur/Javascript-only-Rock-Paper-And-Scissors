@@ -1,30 +1,31 @@
 function computerPlay(){
   machineMoveGenerate = Math.random();
   if(machineMoveGenerate<0.34){
+    console.log("Computer picked rock")
     return "rock"
   }else if(machineMoveGenerate<=0.67 && machineMoveGenerate>0.34){
+    console.log("Computer picked paper")
     return "paper"
   }else{
+    console.log("Computer picked scissors")
     return "scissors"
   }
 }
 
-function oneRound(){
+function playerChoiceGenerate(){
+    let playerSelection = prompt("Choose Rock,Paper or scissors.")
+    playerSelection= playerSelection.toLowerCase().trim();
+    console.log("You picked " + playerSelection)
+    return playerSelection = playerSelection.toLowerCase();
+}
+
+function oneRound(playerSelection,computerSelection){
     const youWin = "You Won",
     youLose= "You Lost "
     tie = "It's a tie"
-    playerSelection = prompt("Choose Rock,Paper or scissors."),
-    computerSelection = computerPlay();
-    playerSelection= playerSelection.toLowerCase();
-    console.log("You picked " + playerSelection)
-    console.log("Computer picked " + computerSelection)
-    playerSelection = playerSelection.toLowerCase();
-    if(!playerSelection){
-        oneRound()
-    }
     if(playerSelection === computerSelection){
         console.log(tie)
-        return oneRound()
+        return game()
     }
     switch(playerSelection){
         case "rock":
@@ -51,29 +52,34 @@ function oneRound(){
             } 
         default: 
             console.log("Invalid choice entered. Choose from rock,papers and scissors.")
-            return oneRound()
+            return game()
     }
 } 
 
 function game(){
-    let scoreOfPlayer=0
-    const j=5
-    for(let i= 1; i<= j ; i++){
-        const resultOfRound = oneRound();
+    let scoreOfPlayer=0,
+    scoreOfComputer=0;
+    for(let i= 1; i<= 5 ; i++){
+        const playerMove = playerChoiceGenerate(),
+        computerMove = computerPlay(),
+        resultOfRound = oneRound(playerMove,computerMove);
         console.log(resultOfRound)
         if (resultOfRound.includes("Won")){
              scoreOfPlayer++
-        }else{
-
+        }else if(resultOfRound.includes("Lost")){
+            scoreOfComputer++
         }
     }
-    if(scoreOfPlayer>=3) "You Won The Round."
-    else return "Computer Won The Round."
+    if(scoreOfPlayer>=3) {
+        console.log(`You won the Game with score ${scoreOfPlayer}`) 
+    } 
+    else {
+        console.log(`Computer Won The Round with score ${scoreOfComputer}`)
+    }
 }
 
 
 while(true){
     console.log("Let's Play Rock,Paper And Scissors!!!")
-    console.log(game())
+    game()
 }
-
