@@ -12,11 +12,24 @@ function computerPlay(){
   }
 }
 
-function playerChoiceGenerate(){
-    let playerSelection = prompt("Choose Rock,Paper or scissors.")
-    playerSelection= playerSelection.toLowerCase().trim();
-    console.log("You picked " + playerSelection)
-    return playerSelection = playerSelection.toLowerCase();
+function playerPlay(){
+    let playerSelection = prompt("Choose Rock,Paper or scissors."),
+    gamecancelled
+    if(playerSelection===null) {
+        confirm("Click ok to exit")
+        if(!confirm){
+            alert('You can try again when the high lows');
+            console.log('You can try again whenever you want');
+        }
+        else{
+            playerPlay();
+        }
+    }
+    else{
+        playerSelection= playerSelection.toLowerCase().trim();
+        console.log("You picked " + playerSelection)
+        return playerSelection;
+    }
 }
 
 function oneRound(playerSelection,computerSelection){
@@ -59,9 +72,10 @@ function oneRound(playerSelection,computerSelection){
 function game(){
     let scoreOfPlayer=0,
     scoreOfComputer=0;
-    for(let i= 1; i<= 5 ; i++){
-        const playerMove = playerChoiceGenerate(),
-        computerMove = computerPlay(),
+    let rounds
+    for(rounds= 1; rounds<= 5 ; rounds++){
+        playerMove= playerPlay(),
+        computerMove=computerPlay();
         resultOfRound = oneRound(playerMove,computerMove);
         console.log(resultOfRound)
         if (resultOfRound.includes("Won")){
@@ -69,7 +83,9 @@ function game(){
         }else if(resultOfRound.includes("Lost")){
             scoreOfComputer++
         }
+        console.log(rounds)
     }
+    
     if(scoreOfPlayer>=3) {
         console.log(`You won the Game with score ${scoreOfPlayer}`) 
     } 
