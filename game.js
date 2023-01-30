@@ -23,7 +23,8 @@ function oneRound(){
         oneRound()
     }
     if(playerSelection === computerSelection){
-        return tie
+        console.log(tie)
+        return oneRound()
     }
     switch(playerSelection){
         case "rock":
