@@ -1,3 +1,4 @@
+const gameValues= ["rock", "paper", "scissors"]
 let playerCancelled = false,
 ended = false,
 scoreOfPlayer = 0,
